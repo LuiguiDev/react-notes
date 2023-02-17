@@ -6,8 +6,14 @@ import { TURNS } from "./const";
 import confetti from "canvas-confetti";
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turn, setTurn] = useState(TURNS.X);
+  const [board, setBoard] = useState(() => {
+    const matchSaved = window.localStorage.getItem('board');
+    return matchSaved ? JSON.parse(matchSaved) : Array(9).fill(null);
+  });
+  const [turn, setTurn] = useState(() => {
+    const turnSaved = window.localStorage.getItem('turn');
+    return JSON.parse(turnSaved) ?? TURNS.X;
+  });
   const [winner, setWinner] = useState(null);
 
   const updateBoard = (index) => {
@@ -16,12 +22,17 @@ function App() {
 
     if(!newBoard[index] && !winner){
       newBoard[index] = turn;
-      setBoard(newBoard);
+      setBoard(newBoard)
 
       const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
-      setTurn(newTurn)
+      setTurn(newTurn);
 
       const newWinner = checkWinner(newBoard);
+
+      // stringify keeps array notation, therefore we can rcover the array with JSON.parse()
+      window.localStorage.setItem('board', JSON.stringify(newBoard));
+      window.localStorage.setItem('turn', JSON.stringify(newTurn));
+
       if(newWinner){
         confetti();
         setWinner(newWinner);
@@ -38,6 +49,8 @@ function App() {
     setBoard(Array(9).fill(null));
     setWinner(null);
     setTurn(TURNS.X);
+    window.localStorage.removeItem('board');
+    window.localStorage.removeItem('turn');
   };
 
   return (
