@@ -1,0 +1,20 @@
+In order to evaluate the knowlege of the candidate many companies ask for you to create a react starting point.
+
+The starting point is the first script loaded in HTML, to initialize a react project with vite we have to:
+  1.- npm install @vitejs/pluging-react -E (in order to enable vite to handle react projects, -E means exact)
+  2.- install dependencies (react & react dom)
+    - npm install react react-dom -E
+  3.- create a file vite.config.js and in this file we write:
+    import { defineConfig } from "vite";
+    import react from '@vitejs/plugin-react';
+
+    export default defineConfig({
+      plugins: [react()]
+    })
+  4.- in the starting point we write:
+    import { createRooot } from 'react-dom/client';
+    createRooot(document.getElementByID('app'));
+    root.render(<h1>Hello world!</h1>);
+
+In addition we should install an inter
+  npm install standard -D

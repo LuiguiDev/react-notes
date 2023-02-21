@@ -1,0 +1,10 @@
+APIs:
+- Facts random: https://catfact.ninja/fact
+- Image random: https://cataas.com/cat/says/hello
+
+Description:
+- Get a random fact with the first api.
+- Get the first 3 words form the fact.
+- Display a kitten image with those words.
+
+// First of all we have to devide the statement in smaller tasks
