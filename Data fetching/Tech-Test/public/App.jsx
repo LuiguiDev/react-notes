@@ -1,24 +1,23 @@
-import { useState, useEffect } from "react"
-import { getNewFact } from "./facts";
 import { useCatImage } from "./Hooks/useCatImage";
+import { useCatFact } from "./Hooks/useCatFact";
+import { CatImage } from "./Modules/CatImage";
 
 export function App () {
-
-  const [fact, setFact] = useState();
-  const imageURL = useCatImage({ fact });
-  
-  useEffect(() => {
-    getNewFact().then(newFact => setFact(newFact))
-  },[])
-
-  function handleClick () {
-    getNewFact().then(setFact)
+  const {fact, refreshFact, cropped} = useCatFact(); // Calling the useCatFact's returns
+  const imageURL = useCatImage(fact, cropped);
+  async function handleClick () {
+    refreshFact();
   }
+
   return(
     <main>
       <h1>Kittens app</h1>
       {fact && <p>{fact}</p>}
-      {imageURL && <img src={imageURL} alt={`Cat image that says \'${fact}\'`}/>}
+      {imageURL &&
+        <section className="Images">
+          <CatImage fact={cropped}/>
+        </section>
+      }
       <button onClick={handleClick}>Generate new image</button>
     </main>
   )

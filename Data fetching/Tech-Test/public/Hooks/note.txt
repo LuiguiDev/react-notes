@@ -1,0 +1,3 @@
+Every time you call a useEffect it could be a custume hook because it's logic that can be reusable and modulable
+
+// The difference between a function and a custume hook is custume hook can handle useState & useEffect

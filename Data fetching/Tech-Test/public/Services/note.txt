@@ -1,0 +1,3 @@
+A service is a script or application that not depend on user's interaction, it can manage data processing, event hanlders, manage resources and communication among other services. As an essencial part for the application to work they can run automatly.
+
+// The logic module shouldn't depend on react, so we can't pass setState or any react logic

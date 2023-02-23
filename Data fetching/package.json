@@ -1,6 +1,11 @@
 {
   "devDependencies": {
+    "@playwright/test": "^1.31.1",
     "eslint": "^8.34.0",
     "eslint-plugin-react": "^7.32.2"
-  }
+  },
+  "dependencies": {
+    "playwright": "^1.31.1"
+  },
+  "scripts": {}
 }

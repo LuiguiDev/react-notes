@@ -8,3 +8,9 @@ Description:
 - Display a kitten image with those words.
 
 // First of all we have to devide the statement in smaller tasks
+// Once finished all the tasks sentence there will other tasks, you should be prepared well
+// After all, you should decide what's next, there could be:
+  - Handle errors
+  - Testing
+  x Add features
+  x Add styles
