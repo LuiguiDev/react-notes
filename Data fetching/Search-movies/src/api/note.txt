@@ -1,0 +1,3 @@
+You should not inspect the api's response by fetch or console.log, the best way is to use the api in the browser with a json formater and then copy the response to a json file. This way, we cant easily inspect the api without using fetch.
+
+Import these files will allow us to acces to the object methods.

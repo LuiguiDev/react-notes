@@ -19,3 +19,5 @@ test('Title: App shows an image', async({ page }) => {
 
   console.log(textContent, imageSrc)
 })
+
+// ToDo: Create a test to check the button get new fact and check if it make a change on the page
