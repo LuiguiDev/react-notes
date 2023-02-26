@@ -1,0 +1,15 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+form{
+  display: flex;
+  gap: 10px;
+  width: 350px;
+  flex-wrap: wrap;
+}
+label{
+  width: 100%;
+}

@@ -1,27 +1,19 @@
-import found from './api/found.json'
-import notFound from './api/not-found.json'
+import { useMovies } from './Hooks/useMovies';
+import { RenderResults } from './Modules/Results';
+import { Search } from './Modules/Search';
 
 export default function App () {
+  const { movies: mappedMovies } = useMovies();
 
   return (
-    <div>
+    <div className='container'>
       <header>
-        <form action="">
-          <label htmlFor="">Write a movie title</label>
-          <input type="search" placeholder="Avengers, interstellar, ted" />
-          <button type="submit">Search</button>
-        </form>
+        <Search/>
       </header>
 
       <main>
-        <h2>Search results</h2>
-        {
-          found.Response &&
-          <div>
-            <p>{found.Title}</p>
-            <img src={found.Poster} alt={`Film poster for ${found.Title}`} />
-          </div>
-        }
+        <h2>Results:</h2>
+        <RenderResults movies={mappedMovies} />
       </main>
     </div>
   )
