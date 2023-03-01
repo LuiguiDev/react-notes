@@ -3,13 +3,12 @@ import '../Styles/Results.css'
 
 export function MovieList ({ movies }) {
   return (
-    <ul>
+    <ul className="movie_list">
       {
         movies.map(movie => (
           <div className="card" key={movie.id}>
             <div className="data">
               <li>{movie.title}</li>
-              <span> | </span>
               <p>{movie.year}</p>
             </div>
             <img src={movie.image} alt={`Poster for ${movie.title}`} />

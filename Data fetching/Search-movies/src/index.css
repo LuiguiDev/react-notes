@@ -1,8 +1,13 @@
+body{
+  margin: 0;
+  padding: 0;
+}
 .container{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100vw;
 }
 form{
   display: flex;
@@ -11,5 +16,8 @@ form{
   flex-wrap: wrap;
 }
 label{
+  width: 100%;
+}
+main{
   width: 100%;
 }
