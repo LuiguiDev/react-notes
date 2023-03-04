@@ -15,7 +15,7 @@ export function useSearch () {
       setError('You havent write anything')
       return
     }
-    if(search === 'fuck'){
+    if(search.toLowerCase() === 'fuck' || search.toLowerCase() === 'porn' || search.toLowerCase() === 'gore'){
       setError('Can\'t search mature content')
       return
     }

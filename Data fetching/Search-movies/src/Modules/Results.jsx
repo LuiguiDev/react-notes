@@ -1,12 +1,13 @@
 import api from "../constants/apiObj"
 import '../Styles/Results.css'
+import found from '../api/found.json';
 
 export function MovieList ({ movies }) {
   return (
     <ul className="movie_list">
       {
         movies.map(movie => (
-          <div className="card" key={movie.id}>
+          <div key={movie.id} className="card">
             <div className="data">
               <li>{movie.title}</li>
               <p>{movie.year}</p>
@@ -25,10 +26,10 @@ export function NoResults () {
   )
 }
 
-export function RenderResults ({ movies }) {
-  const hasMovies = movies?.length > 0;
+export function RenderResults ({movies}) {
+  let hasMovies = movies?.length > 0 
 
-  return (
-    hasMovies ? <MovieList movies={movies} /> : <NoResults />
+  return(
+    hasMovies ? <MovieList movies ={movies} /> : <NoResults />
   )
 }

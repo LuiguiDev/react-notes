@@ -1,27 +1,30 @@
-import { useState } from 'react';
-import found from '../api/found.json';
-
-const KEY = '94be3e4c'
-
+import { useRef, useState } from 'react';
+import { searchMovies } from '../Services/movies';
 
 export function useMovies (search) {
-  const [moviesResponse, setMoviesResponse] = useState([]);
-  const movies = moviesResponse.Search
-  const mappedMovies = movies?.map(movie => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    image: movie.Poster,
-    year: movie.Year
-  }))
-  
-  function fetchMovies () {
-    if (search) {
-      fetch(`https://www.omdbapi.com/?s=${search}&apikey=${KEY}`)
-        .then(res => res.json())
-        .then(data => setMoviesResponse(data))
-      console.log(moviesResponse)
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  // useRef save search value even when the entire component, (in this case a hook) gets re-rendered 
+  const previousSearch = useRef(search)
+  // we can get the same thing by declare a cariable outside useMovies, but the 
+
+  async function fetchMovies () {
+    if (search === previousSearch.current) {
+      console.log('Refuse to search the same thing again')
+      return
+    }
+
+    try {
+      setLoading(true);
+      previousSearch.current = search
+      const movies = await searchMovies({ search });
+      setMovies(movies);
+    } catch (error) {
+      throw new Error (error.message)
+    } finally {
+      setLoading(false)
     }
   }
 
-  return { movies: mappedMovies, fetchMovies }
+  return { movies, fetchMovies, loading }
 }
