@@ -1,3 +1,6 @@
 .main{
   width: 100%;
 }
+.sortBy {
+  display: flex;
+}

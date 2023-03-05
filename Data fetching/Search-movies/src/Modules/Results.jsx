@@ -26,7 +26,7 @@ export function NoResults () {
   )
 }
 
-export function RenderResults ({movies}) {
+export function RenderResults ({ movies }) {
   let hasMovies = movies?.length > 0 
 
   return(
