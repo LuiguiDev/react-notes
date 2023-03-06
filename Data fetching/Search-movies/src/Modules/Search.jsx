@@ -5,14 +5,14 @@ import { useSearch } from "../Hooks/useSearch";
 export function Search () {
   const { search, setSearch, error } = useSearch()
   const { movies, fetchMovies } = useMovies(search)
+  const [submited, setSubmited] = useState('')
   
   function getAllData (e) {
     e.preventDefault()
-    fetchMovies()
+    fetchMovies(search)
   }
   function handleChange (e) {
     const newChange = e.target.value;
-    
     setSearch(newChange)
   }
 
