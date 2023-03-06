@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  gap: 20px;
+}
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+select {
+  width: 150px;
+  height: 20px;
+}
+input {
+  width: 150px;
+}
