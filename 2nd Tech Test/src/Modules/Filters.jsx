@@ -1,32 +1,33 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import '../styles/filters.css'
 import { products } from '../Mocks/products.json'
+import { useFilters } from '../Hooks/useFilters';
 
 // To get access to the setFilters function we'll use prop drilling method, where we pass the props through the parent component to finally get the props here
-export default function Filters ({ changeFiltersValue }) {
-  const [maxPrice, setMaxPrice] = useState(2000)
-  const categories = [...new Set(getCategories(products))]
+export default function Filters () {
+  const {setFilters} = useFilters()
+  const [maxPrice, setMaxPrice] = useState(2000);
+  const categories = [...new Set(getCategories(products))];
+  const priceFilterId = useId();
+  const categoryFilterId = useId();
+  // Above I use the useId hook to create exclusive ids for the HTML elements, it is not recommended for a list of elements generated with .map
 
   function getCategories (products) {
     return products.map(element => {
       return element.category
     })
   }
-  function getKey () {
-    return Math.floor(Math.random() * 100000)
-  }
   function changeMaxPrice (e) {
     setMaxPrice(e.target.value)
     // something smell bad 
     // two sources of truth
-    changeFiltersValue(prevState => ({
+    setFilters(prevState => ({
       ...prevState,
       maxPrice: e.target.value
     }))
   }
-
   function changeCategory (e) {
-    changeFiltersValue(prevState => ({
+    setFilters(prevState => ({
       ...prevState,
       category: e.target.value
     }))
@@ -35,9 +36,9 @@ export default function Filters ({ changeFiltersValue }) {
   return (
     <div className="container">
       <div className="filter">
-        <label htmlFor="price">Filter by price</label>
+        <label htmlFor={priceFilterId}>Filter by price</label>
         <input 
-          id="price"
+          id={priceFilterId}
           type="range"
           value={maxPrice}
           min={100}
@@ -48,12 +49,12 @@ export default function Filters ({ changeFiltersValue }) {
         <span>Max price: {maxPrice}</span>
       </div>
       <div className="filter">
-        <label htmlFor="category">Filter by category</label>
-        <select id="category" onChange={changeCategory}>
+        <label htmlFor={categoryFilterId} >Filter by category</label>
+        <select id={categoryFilterId} onChange={changeCategory}>
           <option value="all">all</option>
           {
-            categories.map(cat => (
-              <option value={cat}>{cat}</option>
+            categories.map(category => (
+              <option value={category}>{category}</option>
             ))
           }
         </select>

@@ -3,7 +3,6 @@ import '../styles/products.css'
 function Products ({products}) {
   return (
     <>
-      <h2>List of products</h2>
       <ul className="list">
         {
           products.slice(0, 9).map(element => {
