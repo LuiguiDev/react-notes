@@ -1,22 +1,36 @@
-import { products } from '../Mocks/products.json'
 import '../styles/products.css'
 
-export default function Products () {
+function Products ({products}) {
   return (
     <>
       <h2>List of products</h2>
-      <div className="list">
+      <ul className="list">
         {
           products.slice(0, 9).map(element => {
             return (
-              <div className="card" key={element.id}>
+              <li className="card" key={element.id}>
                 <img src={element.thumbnail} alt={element.title} />
                 <p><strong>{element.title}</strong> - ${element.price}</p>
-              </div>
+                <button>Add to cart</button>
+              </li>
             )
           })
         }
-      </div>
+      </ul>
     </>
   )
+}
+
+function NotFound () {
+  return (
+    <p>There aren't products with those filters</p>
+  )
+}
+
+export default function RenderProducts ({ products }) {
+  if (products.length > 0) {
+    return <Products products={products} />
+  }else {
+    return <NotFound />
+  }
 }

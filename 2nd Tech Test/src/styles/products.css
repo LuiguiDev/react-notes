@@ -1,6 +1,21 @@
 .list {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-items: center;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+li {
+  background-color: rgb(19, 19, 19);
+  padding: 20px;
+  border-radius: 10px;
 }
 img{
   width: 200px;
+}
+button {
+  color: black;
+  background-color: rgb(255, 204, 0);
 }
