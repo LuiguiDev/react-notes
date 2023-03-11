@@ -5,6 +5,7 @@ import { products } from './Mocks/products.json'
 import { Footer } from './Modules/Footer'
 import { IS_DEVELOPMENT } from './config'
 import { useFilters } from './Hooks/useFilters'
+import { Cart } from './Modules/Cart'
 
 function App() {
   const {filterProducts, setFilters, filters} = useFilters();
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <Header />
+      <Cart />
       <h2>List of products</h2>
       <RenderProducts products={filteredProducts} />
       {IS_DEVELOPMENT && <Footer filters={filters} />}
