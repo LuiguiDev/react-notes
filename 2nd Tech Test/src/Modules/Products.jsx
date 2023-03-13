@@ -1,6 +1,9 @@
+import { useCart } from '../Hooks/useCart'
 import '../styles/products.css'
 
 function Products ({products}) {
+  const { addToCart } = useCart()
+
   return (
     <>
       <ul className="list">
@@ -10,7 +13,7 @@ function Products ({products}) {
               <li className="card" key={element.id}>
                 <img src={element.thumbnail} alt={element.title} />
                 <p><strong>{element.title}</strong> - ${element.price}</p>
-                <button>Add to cart</button>
+                <button onClick={() => addToCart(element)}>Add to cart</button>
               </li>
             )
           })

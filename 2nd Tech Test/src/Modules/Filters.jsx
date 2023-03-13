@@ -53,8 +53,8 @@ export default function Filters () {
         <select id={categoryFilterId} onChange={changeCategory}>
           <option value="all">all</option>
           {
-            categories.map(category => (
-              <option value={category}>{category}</option>
+            categories.map((category, index) => (
+              <option value={category} key={index}>{category}</option>
             ))
           }
         </select>
