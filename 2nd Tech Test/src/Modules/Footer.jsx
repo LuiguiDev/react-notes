@@ -6,9 +6,7 @@ export function Footer () {
 
   return (
     <footer className='footer'>
-        {
-          JSON.stringify(cart, null, 2)
-        }
+      <h5>Luigui dev</h5>
     </footer>
   )
 }

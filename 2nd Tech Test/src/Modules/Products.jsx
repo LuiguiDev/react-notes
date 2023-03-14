@@ -2,18 +2,35 @@ import { useCart } from '../Hooks/useCart'
 import '../styles/products.css'
 
 function Products ({products}) {
-  const { addToCart } = useCart()
+  const { cart, addToCart, removeFromCart } = useCart();
+
+  function checkProductInCart (product) {
+    return cart.some(item => item.id === product.id)
+  }
 
   return (
     <>
       <ul className="list">
         {
           products.slice(0, 9).map(element => {
+            const alreadyInCart = checkProductInCart(element)
+
             return (
               <li className="card" key={element.id}>
                 <img src={element.thumbnail} alt={element.title} />
                 <p><strong>{element.title}</strong> - ${element.price}</p>
-                <button onClick={() => addToCart(element)}>Add to cart</button>
+                <button onClick={() => {
+                  alreadyInCart
+                    ? removeFromCart(element)
+                    : addToCart(element)
+                  }}
+                >
+                  {
+                    alreadyInCart
+                      ? 'Remove from cart'
+                      : 'Add to cart'
+                  }
+                </button>
               </li>
             )
           })
