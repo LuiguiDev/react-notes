@@ -1,43 +1,62 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer, useState } from "react";
 
 // 1.- Create the context
 export const CartContext = createContext()
 
-// 2.- Create the access to the context
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  
-  const clearCart = () => {
-    setCart([])
-    setTotal(0)
-  };
-  const addToCart = (newItem) => {
-    // Check if the product is already on the cart
-    const productInCartIndex = cart.findIndex(item => item.id === newItem.id)
+// Reducer set the state relying an action
+// We use useReducer when we have several setStates for the same state
+const initialState = [];
+const reducer = (state, action) => {
+  const {type: actionType, payload: actionPayload} = action;
 
-    if(productInCartIndex >= 0) {
-      const newCart = structuredClone(cart);
-      const finded = newCart[productInCartIndex]
-      finded.quantity += 1;
-      setCart(newCart);
-      setTotal(prevState => prevState += finded.price)
-    }else{
-      setCart(prevState => ([
-        ...prevState, {...newItem, quantity: 1}
-      ]))
-      setTotal(prevState => prevState += newItem.price)
+  switch (action.type) {
+    case 'Add_to_cart': {
+      const { id } = actionPayload
+      const productInCartIndex = state.findIndex(item => item.id === id)
+
+      if(productInCartIndex >= 0) {
+        const newCart = structuredClone(state);
+        const finded = newCart[productInCartIndex];
+        finded.quantity += 1;
+        return newCart
+      }else{
+        return [
+          ...state,
+          {
+            ...actionPayload, // Product
+            quantity: 1
+          }
+        ]
+      } 
+    } 
+    case 'Remove_from_cart': {
+      const { id } = actionPayload
+      return state.filter(item => item.id !== id);
     }
-  };
-  const removeFromCart = (product) => {
-    const productIndex = cart.findIndex(item => item.id === product.id)
-
-    setCart(prevState => prevState.filter(item => item.id != product.id))
-    setTotal(prevState => prevState - cart[productIndex].price * cart[productIndex].quantity)
+    case 'Clear_cart': {
+      return initialState
+    } 
   }
 
+  return state
+}
+
+// 2.- Create the access to the context
+export const CartProvider = ({ children }) => {
+  const [state, dispathc] = useReducer(reducer, initialState)
+
+  const addToCart = product => dispathc({
+    type: 'Add_to_cart',
+    payload: product
+  })
+  const removeFromCart = product => dispathc({
+    type: 'Remove_from_cart',
+    payload: product
+  })
+  const clearCart = () => dispathc({ type: 'Clear_cart' });
+
   return (
-    <CartContext.Provider value={{cart, clearCart, addToCart, removeFromCart, total}}>
+    <CartContext.Provider value={{cart: state, clearCart, addToCart, removeFromCart}}>
       {children}
     </CartContext.Provider>
   )
