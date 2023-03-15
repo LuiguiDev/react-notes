@@ -32,7 +32,7 @@ export function Cart () {
         id={cartCeckboxId}
         hidden
       />
-      {total > 0 && <aside className='cart'>
+      <aside className='cart'>
         <ul>
           {cart.map(product => {
             return (
@@ -54,10 +54,7 @@ export function Cart () {
           <button onClick={clearCart} className='clear_cart'>Clear cart</button>
           <button className='pay'>Pay</button>
         </div>
-      </aside>}
-      {total === 0 && <aside className='cart'>
-        <p>No has agregado ningun producto a tu carrito</p>
-      </aside>}
+      </aside>
     </>
   )
 }
