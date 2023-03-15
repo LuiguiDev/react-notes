@@ -47,6 +47,7 @@ export function Cart () {
             )
           })}
         </ul>
+        
         <div className='line'></div>
         <h3>Total: ${total}</h3>
         <div className="buttons">
