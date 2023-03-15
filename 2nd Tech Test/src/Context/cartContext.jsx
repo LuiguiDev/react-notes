@@ -6,7 +6,7 @@ export const CartContext = createContext()
 
 // 2.- Create the access to the context
 export const CartProvider = ({ children }) => {
-  const [state, dispathc] = useReducer(cartReducer, initialState)
+  const [states, dispathc] = useReducer(cartReducer, initialState)
 
   const addToCart = product => dispathc({
     type: 'addToCart',
@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => dispathc({ type: 'cleanCart' });
 
   return (
-    <CartContext.Provider value={{cart: state, clearCart, addToCart, removeFromCart}}>
+    <CartContext.Provider value={{cart: states.cart, clearCart, addToCart, removeFromCart, total: states.total}}>
       {children}
     </CartContext.Provider>
   )

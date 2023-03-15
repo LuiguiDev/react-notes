@@ -49,7 +49,7 @@ export function Cart () {
         </ul>
         
         <div className='line'></div>
-        <h3>Total: $idk</h3>
+        <h3>Total: ${total}</h3>
         <div className="buttons">
           <button onClick={clearCart} className='clear_cart'>Clear cart</button>
           <button className='pay'>Pay</button>
