@@ -1,0 +1,3 @@
+MPA: Multiple Page Aplication, is the original way to browse between pages, it is easy to build and maintain but between changes download all recurces again 
+
+SPA: Single Page Aplication, save previous recources and downloads only the new content needed, making a fastest browsing but eavier to maintain
