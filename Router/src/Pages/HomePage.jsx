@@ -1,4 +1,4 @@
-import { browse, Link } from '../Link';
+import { browse, Link } from '../Components/Link';
 
 export default function HomePage () {
   return (

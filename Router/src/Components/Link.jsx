@@ -1,4 +1,4 @@
-import { EVENTS } from "./constants/Events";
+import { EVENTS } from "../Constants/Events";
 
 export function browse (path) {
   // Window.history change the url without refreshing the page
