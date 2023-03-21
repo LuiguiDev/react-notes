@@ -46,4 +46,4 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
   })?.Component
 
   return Page ? <Page routeParams={routeParams} /> : <DefaultComponent />
-}  
+}

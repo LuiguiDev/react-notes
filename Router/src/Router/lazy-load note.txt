@@ -1,0 +1,5 @@
+In react we have a function called lazy that allows us to load dynamically jsx modules when they are needed, therefore it give us a better performance
+
+- Static import: The file is imported as soon as the page is loaded
+
+- Dynamic import: Uses a promises to load files when they are needed
