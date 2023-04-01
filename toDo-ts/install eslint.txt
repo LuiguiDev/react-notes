@@ -1,0 +1,15 @@
+1.- npx eslint --init. then yes yes.
+
+2.- choose the option "check syntax, find problems and enforce code style"
+
+3.- choose type of modules "js modules (import/export)
+
+4.- choose framework. Choose ts or js. Chose browser or node
+
+5.- define style "pupular " then "standard" and format "js"
+
+6.- choose install now and npm
+
+7.- Configuration:
+    - in "parserOptions" add "project": "./tsconfig.json"
+    

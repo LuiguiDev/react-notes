@@ -1,3 +1,5 @@
 1.- install vitest (npm installl vitest -D) with npm install vitest, check if its working with a simple test.
 
 2.- npm install happy-dom @testing-library/react -D  <- This allow to symulate a DOM like a browser and add it to the vite.config
+
+3.- We can view the test in a better UI by adding "test:ui" : "vitest --ui" as a script on package.json
