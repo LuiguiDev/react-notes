@@ -1,8 +1,11 @@
 import {type ToDo as ToDoType} from '../types'
+import '../Styles/todo.css'
 
-type Props = ToDoType
+interface Props extends ToDoType {
+  handleRemove: (id: number) => void
+}
 
-export const ToDo: React.FC<Props> = ({ id, title, completed }) => {
+export const ToDo: React.FC<Props> = ({ id, title, completed, handleRemove }) => {
   function deleteTask () {}
 
   return (
@@ -14,7 +17,7 @@ export const ToDo: React.FC<Props> = ({ id, title, completed }) => {
         onChange={() => {}}
       />
       <label htmlFor="">{title}</label>
-      <button className="delete" onClick={deleteTask}></button>
+      <button className="delete" onClick={() => {handleRemove(id)}}>X</button>
     </div>
   )
 }

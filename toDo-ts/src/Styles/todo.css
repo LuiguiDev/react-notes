@@ -1,0 +1,7 @@
+.view{
+  display: flex;
+}
+
+.delete {
+  margin-left: auto;
+}

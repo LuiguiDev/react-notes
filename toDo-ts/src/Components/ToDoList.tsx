@@ -4,13 +4,15 @@ import { ToDo } from './ToDo'
 
 interface Props {
   toDos: ListOfToDos
+  handleRemove: (id: number) => void
 }
 
 // React.FC allow us to declare paremeter's types with React.FC<Props>
-export const ToDoList: React.FC<Props> = ({toDos}) => {
+export const ToDoList: React.FC<Props> = ({toDos, handleRemove}) => {
   return (
-    <ul>
+    <ul className='todo-list'>
       {toDos.map((task) => {
+        console.log(task.completed)
         return (
           <li 
             key={task.id}
@@ -21,6 +23,7 @@ export const ToDoList: React.FC<Props> = ({toDos}) => {
               id={task.id}
               title={task.title}
               completed={task.completed}
+              handleRemove={handleRemove}
             />
           </li>
         )
