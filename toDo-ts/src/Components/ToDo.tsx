@@ -1,11 +1,13 @@
-import {type ToDo as ToDoType} from '../types'
+import {TodoCompleted, TodoId, type ToDo as ToDoType} from '../types'
 import '../Styles/todo.css'
 
 interface Props extends ToDoType {
-  handleRemove: (id: number) => void
+  // before: (id: number) now: ({ id }: TodoId). Import a type is a better practice for types that may change, 
+  handleRemove: ({ id }: TodoId) => void
+  handleCompleted: ({id, completed}: Pick<ToDoType, 'id' | 'completed'>) => void
 }
 
-export const ToDo: React.FC<Props> = ({ id, title, completed, handleRemove }) => {
+export const ToDo: React.FC<Props> = ({ id, title, completed, handleRemove, handleCompleted }) => {
   function deleteTask () {}
 
   return (
@@ -14,10 +16,12 @@ export const ToDo: React.FC<Props> = ({ id, title, completed, handleRemove }) =>
         className="toggle"
         type="checkbox"
         checked={completed}
-        onChange={() => {}}
+        onChange={(event) => {
+          handleCompleted({ id, completed: event.target.checked })
+        }}
       />
       <label htmlFor="">{title}</label>
-      <button className="delete" onClick={() => {handleRemove(id)}}>X</button>
+      <button className="delete" onClick={() => {handleRemove({ id })}}>X</button>
     </div>
   )
 }
