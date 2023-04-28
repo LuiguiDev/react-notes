@@ -2,7 +2,9 @@ import { useState } from 'react'
 import './Styles/App.css'
 import { ToDoList } from './Components/ToDoList'
 import { TodoId } from './types'
-import { ToDo } from './types'
+import { ToDo, FilterType } from './types'
+import { TODO_FILTERS } from './consts'
+import { Footer } from './Components/Footer'
 
 const mockToDos = [
   {
@@ -27,6 +29,7 @@ const mockToDos = [
 //   - const App: React.FC = () => {} // Functional Component
 function App():JSX.Element {
   const [toDos, setToDos] = useState(mockToDos) // TS already asing data types by this point by inference, its a good practice use this types assigned automatically because you dont have to update them when they change
+  const [filterSelected, setFilterSelected] = useState<FilterType>(TODO_FILTERS.ALL) // This is a generic state we don´t save an specific value but can be any of TODO_FILTERS
 
   function handleRemove ({ id }: TodoId) {
     const newTodos = toDos.filter(element => element.id != id)
@@ -49,6 +52,12 @@ function App():JSX.Element {
 
       setToDos(newToDos)
   }
+  function handleFilterChange (filter: FilterType) {
+    setFilterSelected(filter)
+  }
+
+  const activeCount = toDos.filter(toDo => !toDo.completed).length
+  const completedCount = toDos.filter(toDo => toDo.completed).length
 
   return (
     <div className='todoapp'>
@@ -60,6 +69,13 @@ function App():JSX.Element {
           handleCompleted={handleCompleted}
         />
       </div>
+      <Footer
+        activeCount={activeCount}
+        completeCount={completedCount}
+        filterSelected={filterSelected}
+        handleFilterChange={handleFilterChange}
+        onClearCompleted={() => {}}
+      />
     </div>
   )
 }

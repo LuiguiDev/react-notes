@@ -8,15 +8,19 @@ interface Props extends ToDoType {
 }
 
 export const ToDo: React.FC<Props> = ({ id, title, completed, handleRemove, handleCompleted }) => {
-  function deleteTask () {}
+  // This is an alternative to type the event manually (Recommended, but not used here)
+  function typeEvent (event: React.ChangeEvent<HTMLInputElement>): void {
+    // By doing this types target and checked are available for auto-complete
+    event.target.checked
+  }
 
   return (
     <div className="view">
-      <input 
+      <input
         className="toggle"
         type="checkbox"
         checked={completed}
-        onChange={(event) => {
+        onChange={(event) => { // this event is already typed by ts
           handleCompleted({ id, completed: event.target.checked })
         }}
       />

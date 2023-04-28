@@ -1,5 +1,7 @@
 // Types can be exported as modules, the file could have the extension .d.ts to indicate that they are declarations, no functions or other kind of code. Its just with visual porpuse
 
+import { TODO_FILTERS } from "./consts"
+
 type toDosType = { // not used
   id: string,
   title: string,
@@ -20,3 +22,6 @@ export type TodoTitle = Pick<ToDo, 'title'>
 export type TodoCompleted = Pick<ToDo, 'completed'>
 
 export type ListOfToDos = ToDo[] // This line declare that the list is an array of toDos, also can be writen like: Array<toDos>
+
+// The line below is complex, it use a key from the obj TODO_FILTERS and add their type with typeof, once we have the keys we need the values, the first argument get: obj['prop']. Then the value is typed with typeof
+export type FilterType = typeof TODO_FILTERS[keyof typeof TODO_FILTERS]
