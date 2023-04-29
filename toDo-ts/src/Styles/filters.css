@@ -1,0 +1,18 @@
+.filters {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+li a {
+  color: #00273f;
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.selected {
+  border: 2px solid #00273f;
+}

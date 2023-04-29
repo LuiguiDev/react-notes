@@ -61,21 +61,21 @@ function App():JSX.Element {
 
   return (
     <div className='todoapp'>
-      <h1>ToDo List with typescript</h1>
+      <h1>ToDo list with <span className='ts'>TypeScript</span></h1>
       <div className='todos'>
         <ToDoList 
           toDos={toDos}
           handleRemove={handleRemove}
           handleCompleted={handleCompleted}
         />
+        <Footer
+          activeCount={activeCount}
+          completeCount={completedCount}
+          filterSelected={filterSelected}
+          handleFilterChange={handleFilterChange}
+          onClearCompleted={() => {}}
+        />
       </div>
-      <Footer
-        activeCount={activeCount}
-        completeCount={completedCount}
-        filterSelected={filterSelected}
-        handleFilterChange={handleFilterChange}
-        onClearCompleted={() => {}}
-      />
     </div>
   )
 }

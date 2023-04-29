@@ -1,5 +1,6 @@
 import { FILTERS_BUTTONS } from "../consts"
 import { FilterType } from "../types"
+import '../Styles/filters.css'
 
 interface Props {
   filterSelected: FilterType
@@ -15,7 +16,7 @@ export const Filters: React.FC<Props> = ({filterSelected, onFilterChange}) => {
           const className = isSelected ? 'selected' : ''
 
           return (
-            <li key={key}>
+            <li key={key} className="filters_btns">
               <a 
                 className={className}
                 href={href}

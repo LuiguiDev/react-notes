@@ -25,7 +25,7 @@ export const ToDo: React.FC<Props> = ({ id, title, completed, handleRemove, hand
         }}
       />
       <label htmlFor="">{title}</label>
-      <button className="delete" onClick={() => {handleRemove({ id })}}>X</button>
+      <button className="delete" onClick={() => {handleRemove({ id })}}>❌</button>
     </div>
   )
 }
