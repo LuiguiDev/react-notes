@@ -17,13 +17,23 @@ export const Footer: React.FC<Props> = ({
   filterSelected,
   handleFilterChange
 }) => {
-  const plural = activeCount > 1
+  const plural = activeCount > 1 || activeCount === 0
   const text = plural ? 'tareas pendientes' : 'tarea pendiente'
   return (
     <footer>
       <span>
         <strong>{activeCount}</strong> {text}
       </span>
+      {
+        completeCount > 0 && (
+          <button 
+            className="clear_completed"
+            onClick={onClearCompleted}
+          >
+            x
+          </button>
+        )
+      }
       <Filters
         filterSelected={filterSelected}
         onFilterChange={handleFilterChange}

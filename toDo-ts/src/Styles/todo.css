@@ -1,7 +1,9 @@
 .view{
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px 1fr 40px;
+  align-items: center;
+  gap: 15px;
 }
-
 .delete {
   margin-left: auto;
 }

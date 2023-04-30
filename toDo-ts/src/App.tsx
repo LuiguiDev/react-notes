@@ -55,16 +55,31 @@ function App():JSX.Element {
   function handleFilterChange (filter: FilterType) {
     setFilterSelected(filter)
   }
+  function handleClearCompleted () {
+    const filteredToDos = toDos.filter(todo => {
+      return !todo.completed
+    })
+    setToDos(filteredToDos)
+  }
 
   const activeCount = toDos.filter(toDo => !toDo.completed).length
   const completedCount = toDos.filter(toDo => toDo.completed).length
+  const filteredToDos = toDos.filter(toDo => {
+    if (filterSelected === TODO_FILTERS.ACTIVE) {
+      return toDo.completed === false
+    }else if (filterSelected === TODO_FILTERS.COMPLETED) {
+      return toDo.completed === true
+    } else {
+      return toDo
+    }
+  })
 
   return (
     <div className='todoapp'>
       <h1>ToDo list with <span className='ts'>TypeScript</span></h1>
       <div className='todos'>
         <ToDoList 
-          toDos={toDos}
+          toDos={filteredToDos}
           handleRemove={handleRemove}
           handleCompleted={handleCompleted}
         />
@@ -73,7 +88,7 @@ function App():JSX.Element {
           completeCount={completedCount}
           filterSelected={filterSelected}
           handleFilterChange={handleFilterChange}
-          onClearCompleted={() => {}}
+          onClearCompleted={handleClearCompleted}
         />
       </div>
     </div>

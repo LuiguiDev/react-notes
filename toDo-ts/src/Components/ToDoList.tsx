@@ -14,7 +14,6 @@ export const ToDoList: React.FC<Props> = ({toDos, handleRemove, handleCompleted}
   return (
     <ul className='todo-list'>
       {toDos.map((task) => {
-        console.log(task.completed)
         return (
           <li 
             key={task.id}
