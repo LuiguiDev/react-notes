@@ -1,18 +1,22 @@
 import { FILTERS_BUTTONS } from "../consts"
 import { FilterType } from "../types"
 import '../Styles/filters.css'
+import { useContext } from "react"
+import { FiltersContext, FiltersProvider } from "../Context/FiltersContext"
 
 interface Props {
   filterSelected: FilterType
   onFilterChange: (filter: FilterType) => void
 }
 
-export const Filters: React.FC<Props> = ({filterSelected, onFilterChange}) => {
+export const Filters = () => {
+  const data = useContext(FiltersProvider)
+
   return (
     <ul className="filters">
       {
         Object.entries(FILTERS_BUTTONS).map(([key, { href, literal }]) => {
-          const isSelected = key === filterSelected
+          const isSelected = key === data.filterSelected
           const className = isSelected ? 'selected' : ''
 
           return (
@@ -22,7 +26,7 @@ export const Filters: React.FC<Props> = ({filterSelected, onFilterChange}) => {
                 href={href}
                 onClick={(event) => {
                   event.preventDefault()
-                  onFilterChange(key as FilterType)
+                  set
                 }}
               >
                 {literal}

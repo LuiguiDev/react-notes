@@ -1,26 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react'
 import { products } from '../Mocks/products.json'
 
 // Use context is meant to declare not constant changing stuff, for constant-changing things we use Redux || Sustant
 
 // 1.- Create the context, this returns the value={} declared in the funciton
-export const FiltersContext = createContext();
+export const FiltersContext = createContext()
 const categories = [...new Set(getCategories(products))]
 
 function getCategories (products) {
   return products.map(element => {
     return element.category
   })
-// 2.- Crear the context.provider to get the access to the context
 }
-export function FiltersProvider ({ children })  {
+// 2.- Crear the context.provider to get the access to the context
+export function FiltersProvider ({ children }) {
   const [filters, setFilters] = useState({
     category: 'all',
     maxPrice: 2000
   })
   // context value could be a state, number, object, etc, the context is a way to inject dependencies directly to the modules
   return (
-    <FiltersContext.Provider value={{filters, setFilters}}>
+    <FiltersContext.Provider value={{ filters, setFilters }}>
       {children}
     </FiltersContext.Provider>
   )

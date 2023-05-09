@@ -1,10 +1,10 @@
-import { createContext, useReducer, useState } from "react";
-import { cartReducer, initialState } from "../Reducers/cartReducer";
+import { createContext, useReducer } from 'react'
+import { cartReducer, initialState } from '../Reducers/cartReducer'
 
 // 1.- Create the context
 export const CartContext = createContext()
 
-// 2.- Create the access to the context
+// 2.- Create the access and provide value to the context.
 export const CartProvider = ({ children }) => {
   const [states, dispathc] = useReducer(cartReducer, initialState)
 
@@ -16,10 +16,10 @@ export const CartProvider = ({ children }) => {
     type: 'removeFromCart',
     payload: product
   })
-  const clearCart = () => dispathc({ type: 'cleanCart' });
+  const clearCart = () => dispathc({ type: 'cleanCart' })
 
   return (
-    <CartContext.Provider value={{cart: states.cart, clearCart, addToCart, removeFromCart, total: states.total}}>
+    <CartContext.Provider value={{ cart: states.cart, clearCart, addToCart, removeFromCart, total: states.total }}>
       {children}
     </CartContext.Provider>
   )

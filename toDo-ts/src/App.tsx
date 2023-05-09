@@ -86,9 +86,9 @@ function App():JSX.Element {
         <Footer
           activeCount={activeCount}
           completeCount={completedCount}
-          filterSelected={filterSelected}
+          filterSelected={filterSelected} 
           handleFilterChange={handleFilterChange}
-          onClearCompleted={handleClearCompleted}
+          onClearCompleted={handleClearCompleted}        
         />
       </div>
     </div>
