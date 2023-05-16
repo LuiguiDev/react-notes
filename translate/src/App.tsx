@@ -1,7 +1,9 @@
-import { useReducer } from 'react'
 import './App.css'
-import { actionType, stateType } from './types'
 import { useTranslator } from './Hooks/useTranslator'
+import { Container, Row, Col } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { AUTO_LANGUAGE } from './consts'
+import { LanguageSelector, TextBox } from './Components/LanguageSelector'
 
 function App() {
   // Use hook useReducer
@@ -18,16 +20,28 @@ function App() {
     setResult
   } = useTranslator()
 
-  console.log(fromLanguage, toLanguage)
   return (
-    <div className="App">
+    <Container fluid>
       <h1>Nahuatl translate</h1>
-      <p>From: {fromLanguage}</p>
-      <p>To: {toLanguage}</p>
-      <button onClick={() => {
-        interchangeLanguages()
-      }}>Switch languages</button>
-    </div>
+      <Row>
+        <Col>
+          <LanguageSelector onChange={setFromLanguage} />
+        </Col>
+
+        <Col>
+          <button
+            onClick={interchangeLanguages}
+            disabled={fromLanguage === AUTO_LANGUAGE}
+          >
+            Switch
+          </button>
+        </Col>
+        
+        <Col>
+          <LanguageSelector onChange={setToLanguage} />
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

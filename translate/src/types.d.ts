@@ -1,3 +1,9 @@
+import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from "./consts"
+
+export type LanguageType = keyof typeof SUPPORTED_LANGUAGES
+export type AutoLanguageType = typeof AUTO_LANGUAGE
+export type FromLanguageType = LanguageType | AutoLanguageType
+
 export interface stateType {
   fromLanguage: string
   toLanguage: string

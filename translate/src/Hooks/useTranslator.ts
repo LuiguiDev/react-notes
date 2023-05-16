@@ -1,4 +1,5 @@
-import { actionType, stateType } from '../types'
+import { AUTO_LANGUAGE } from '../consts'
+import { FromLanguageType, LanguageType, actionType, stateType } from '../types'
 import { useReducer } from 'react'
 
 // useReducer receives an initialState and a reducer, returns a state and a dispatch, every time and action is called is dispatched, and the reducer generetes a new state
@@ -17,6 +18,8 @@ function reducer (state: stateType, action: actionType) {
   const { type } = action
 
   if (type === 'interchange_languages') {
+    if (state.fromLanguage === AUTO_LANGUAGE) return state
+
     return {
       ...state,
       fromLanguage: state.toLanguage,
@@ -70,10 +73,10 @@ export function useTranslator () {
   const interchangeLanguages = () => {
     dispatch({type: 'interchange_languages'})
   }
-  const setFromLanguage = (payload: string) => {
+  const setFromLanguage = (payload: FromLanguageType) => {
     dispatch({type: 'set_fromLanguage', payload})
   }
-  const setToLanguage = (payload: string) => {
+  const setToLanguage = (payload: LanguageType) => {
     dispatch({type: 'set_toLanguage', payload})
   }
   const setResult = (payload: string) => {
