@@ -5,8 +5,8 @@ export type AutoLanguageType = typeof AUTO_LANGUAGE
 export type FromLanguageType = LanguageType | AutoLanguageType
 
 export interface stateType {
-  fromLanguage: string
-  toLanguage: string
+  fromLanguage: FromLanguageType
+  toLanguage: LanguageType
   fromText: string
   result: string
   loading: boolean
@@ -14,8 +14,13 @@ export interface stateType {
 
 export type actionType = 
   | { type: 'interchange_languages' }
-  | { type: 'set_fromLanguage', payload: string }
-  | { type: 'set_toLanguage', payload: string }
+  | { type: 'set_fromLanguage', payload: FromLanguageType }
+  | { type: 'set_toLanguage', payload: LanguageType }
   | { type: 'set_fromText', payload: string }
   | { type: 'set_result', payload: string }
   
+// to avoid 'magic strings' we use an enum
+export enum SectionType {
+  From = 'from',
+  To = 'to'
+}

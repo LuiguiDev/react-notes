@@ -1,9 +1,10 @@
 import './App.css'
 import { useTranslator } from './Hooks/useTranslator'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form, Stack } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { AUTO_LANGUAGE } from './consts'
-import { LanguageSelector, TextBox } from './Components/LanguageSelector'
+import { LanguageSelector } from './Components/LanguageSelector'
+import { SectionType } from './types.d'
 
 function App() {
   // Use hook useReducer
@@ -25,10 +26,20 @@ function App() {
       <h1>Nahuatl translate</h1>
       <Row>
         <Col>
-          <LanguageSelector onChange={setFromLanguage} />
+          <Stack gap={2}>
+            <LanguageSelector 
+              type={SectionType.From}
+              value= {fromLanguage}
+              onChange={setFromLanguage} />
+            <Form.Control
+              as='textarea'
+              placeholder='Introducir texto'
+              autoFocus
+              style={{height: '150px'}} />
+          </Stack>
         </Col>
 
-        <Col>
+        <Col xs='auto'>
           <button
             onClick={interchangeLanguages}
             disabled={fromLanguage === AUTO_LANGUAGE}
@@ -38,7 +49,17 @@ function App() {
         </Col>
         
         <Col>
-          <LanguageSelector onChange={setToLanguage} />
+          <Stack gap={2}>
+            <LanguageSelector
+              type={SectionType.To}
+              value= {toLanguage}
+              onChange={setToLanguage} />
+
+            <Form.Control
+              as='textarea'
+              placeholder='Traducción'
+              style={{height: '150px'}} />
+          </Stack>
         </Col>
       </Row>
     </Container>
