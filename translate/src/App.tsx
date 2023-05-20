@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { AUTO_LANGUAGE } from './consts'
 import { LanguageSelector } from './Components/LanguageSelector'
 import { SectionType } from './types.d'
+import { TextArea } from './Components/TextArea'
 
 function App() {
   // Use hook useReducer
@@ -31,11 +32,13 @@ function App() {
               type={SectionType.From}
               value= {fromLanguage}
               onChange={setFromLanguage} />
-            <Form.Control
-              as='textarea'
+            <TextArea
+              type={SectionType.From}
+              loading={loading}
+              onChange={setFromText}
+              value={fromText}
               placeholder='Introducir texto'
-              autoFocus
-              style={{height: '150px'}} />
+            />
           </Stack>
         </Col>
 
@@ -55,10 +58,13 @@ function App() {
               value= {toLanguage}
               onChange={setToLanguage} />
 
-            <Form.Control
-              as='textarea'
+            <TextArea
+              type={SectionType.To}
+              loading={loading}
+              onChange={setResult}
+              value={result}
               placeholder='Traducción'
-              style={{height: '150px'}} />
+            />
           </Stack>
         </Col>
       </Row>
