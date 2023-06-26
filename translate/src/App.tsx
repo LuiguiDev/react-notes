@@ -34,10 +34,8 @@ function App() {
               onChange={setFromLanguage} />
             <TextArea
               type={SectionType.From}
-              loading={loading}
-              onChange={setFromText}
               value={fromText}
-              placeholder='Introducir texto'
+              onChange={setFromText}
             />
           </Stack>
         </Col>
@@ -60,10 +58,9 @@ function App() {
 
             <TextArea
               type={SectionType.To}
-              loading={loading}
-              onChange={setResult}
               value={result}
-              placeholder='Traducción'
+              onChange={setResult}
+              loading={loading}
             />
           </Stack>
         </Col>
