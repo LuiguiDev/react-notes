@@ -1,26 +1,42 @@
 import { useState } from 'react'
 import './App.css'
 
-async function getBirds (region: string) {
-  const api = `https://api.ebird.org/v2/product/spplist/${region}`
-  const token = 't2rrv9ecm0ac'
-  const headers = {headers: {'X-eBirdApiToken': token}}
+async function getFactAsync () {
+  const api = 'https://catfact.ninja/fact'
 
   try {
-    const response = await fetch(api, headers)
-    const json = await response.json()
-    const data = json
+    const response = await fetch(api)
 
-    console.log(data)
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`)
+    }
+
+    const json = await response.json()
+
+    console.log(json)
   } catch (error) {
-    throw new Error("Failed to search birds");
-    
+    throw new Error('Failed to search birds')
   }
 }
 
-getBirds('MX')
+function getFact () {
+  const api = 'https://catfact.ninja/fact'
 
-function App() {
+  fetch(api)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`)
+      }
+
+      return response.json()
+    })
+    .then((data) => console.log(data))
+    .catch(error => console.log(error))
+}
+
+getFactAsync() // both getFact working, just different ways to get the same result
+
+function App () {
   return (
     <h1>Birds</h1>
   )
