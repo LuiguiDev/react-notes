@@ -5,11 +5,11 @@ import { useFilters } from '../Hooks/useFilters';
 
 // To get access to the setFilters function we'll use prop drilling method, where we pass the props through the parent component to finally get the props here
 export default function Filters () {
-  const {filters, setFilters} = useFilters()
+  const { filters, setFilters } = useFilters()
   // const [maxPrice, setMaxPrice] = useState(2000);
-  const categories = [...new Set(getCategories(products))];
-  const priceFilterId = useId();
-  const categoryFilterId = useId();
+  const categories = [...new Set(getCategories(products))]
+  const priceFilterId = useId()
+  const categoryFilterId = useId()
   // Above I use the useId hook to create exclusive ids for the HTML elements, it is not recommended for a list of elements generated with .map
 
   function getCategories (products) {
@@ -18,8 +18,8 @@ export default function Filters () {
     })
   }
   function changeMaxPrice (e) {
-    // something smell bad 
-    // two sources of truth, couse we declare states for maxPrice and categories despite we have a global context with those values 
+    // something smell bad
+    // two sources of truth, cause we declare states for maxPrice and categories despite we have a global context with those values
     // setMaxPrice(e.target.value) <-- Previous code with local state instead of the global context
     setFilters(prevState => ({
       ...prevState,

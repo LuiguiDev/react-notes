@@ -1,12 +1,12 @@
-import { useDebugValue, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-
-const factApi = 'https://catfact.ninja/fact'
+import { getFact } from './services/fact'
+import { useFact } from './hooks/useImage'
 
 // both getFact working, just different ways to get the same result
-async function getFactAsync () {
+/* async function getFactAsync () {
   try {
-    const response = await fetch(api)
+    const response = await fetch('')
 
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`)
@@ -18,46 +18,26 @@ async function getFactAsync () {
     throw new Error('Failed to search birds')
   }
 }
+ */
 
 function App () {
   const [fact, setFact] = useState('')
-  const [imageULR, setImageURL] = useState('')
-
-  function getFact () {
-    fetch(factApi)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`)
-        }
-        return response.json()
-      })
-      .then((data) => {
-        const { fact } = data
-        setFact(fact)
-      })
-      .catch(error => console.log(error))
-  }
-  function getImage (word: string) {
-    fetch(`https://cataas.com/cat/says/${word}?size=50&color=red&json=true`)
-      .then(data => data.json())
-      .then(json => {
-        const src = json.url
-        const url = `https://cataas.com${src}`
-        setImageURL(url)
-      })
-      .catch(error => console.log(error))
-  }
+  const { imageULR } = useFact({ fact })
 
   useEffect(() => {
-    getFact()
-    getImage('hi')
+    getFact().then(newFact => setFact(newFact))
   }, [])
+
+  function manageClick () {
+    getFact().then(fact => setFact(fact))
+  }
 
   return (
     <main>
       <h1>Cat facts</h1>
       {fact && <p>{fact}</p>}
       {imageULR && <img src={imageULR} alt='Kitten saying hi' />}
+      <button onClick={manageClick}>Reaload</button>
     </main>
   )
 }
