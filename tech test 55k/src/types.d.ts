@@ -1,4 +1,10 @@
-  export interface Root {
+declare global {
+  interface Array<T> {
+    toSorted(compareFn?: (a: T, b: T) => number ): T[]
+  }
+}
+
+export interface Root {
   results: User[]
   info: Info
 }
