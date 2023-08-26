@@ -8,7 +8,7 @@ interface Props {
   deleteUser: (id: Id) => void,
 }
 
-export const UsersList = ({ users, showColors, sortingBy, handleChangeSort, deleteUser }: Props) => {
+export const UsersList = ({ users, showColors, handleChangeSort, deleteUser }: Props) => {
 
   return (
     <table>

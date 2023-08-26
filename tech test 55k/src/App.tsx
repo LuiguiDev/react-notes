@@ -27,12 +27,12 @@ const App = () => {
   }
 
   // this funciton was mean to use in a separete button from the table
-  function toggleSortByCountry() {
+/*   function toggleSortByCountry() {
     const newSortValue = sortingBy === SortBy.NONE ? SortBy.COUNTRY : SortBy.NONE
     console.log(newSortValue)
     setSortingBy(newSortValue)
   }
-
+ */
   function deleteUser(id: Id) {
     const usersFiltered = users.filter(user => {
       return user.id !== id
