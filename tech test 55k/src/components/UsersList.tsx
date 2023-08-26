@@ -1,35 +1,30 @@
-import { Id, Root, User } from "../types"
+import { Id, SortBy, User } from "../types.d"
 
 interface Props {
   users: User[],
   showColors: boolean,
-  sortUsers: boolean,
-  deleteUser: (id: Id) => void
+  sortingBy: SortBy,
+  handleChangeSort: (newSort: SortBy) => void
+  deleteUser: (id: Id) => void,
 }
 
-export const UsersList = ({ users, showColors, sortUsers, deleteUser }: Props) => {
-
-  const sortedUsers = [...users].sort((a, b) => {
-    return a.location.country.localeCompare(b.location.country)
-  })
-  const showedUsers = sortUsers ? sortedUsers : users
+export const UsersList = ({ users, showColors, sortingBy, handleChangeSort, deleteUser }: Props) => {
 
   return (
     <table>
       <thead>
         <tr>
           <th>Picture</th>
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>County</th>
+          <th onClick={() => handleChangeSort(SortBy.NAME)}>Name</th>
+          <th onClick={() => handleChangeSort(SortBy.LAST_NAME)}>Last Name</th>
+          <th onClick={() => handleChangeSort(SortBy.COUNTRY)}>County</th>
           <th>Actions</th>
         </tr>
       </thead>
 
       <tbody>
         {
-          showedUsers.map((user, index) => {
-            console.log(user.id)
+          users.map((user, index) => {
             const isOdd = index % 2 === 0
             const color = isOdd ? '#333' : '#555'
             const isActive = showColors ? color : 'transparent'  

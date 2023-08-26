@@ -4,6 +4,13 @@ declare global {
   }
 }
 
+export enum SortBy {
+  NONE= 'none',
+  NAME= 'name',
+  LAST_NAME= 'last name',
+  COUNTRY= 'country',
+}
+
 export interface Root {
   results: User[]
   info: Info
