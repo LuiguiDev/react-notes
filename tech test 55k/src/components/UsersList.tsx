@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const UsersList = ({ users, showColors, handleChangeSort, deleteUser }: Props) => {
-
   return (
     <table>
       <thead>

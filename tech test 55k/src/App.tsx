@@ -3,24 +3,30 @@ import './styles/App.css'
 import { Id, SortBy,  User,  Users } from './types.d'
 import { UsersList } from './components/UsersList'
 
+async function fetchUsers(page: number) { 
+  const path = 'https://randomuser.me/api/'
+  const maxResults = 10
+  const seed = 'luigui'
+
+
+  return await fetch(`${path}?results=${maxResults}&seed=${seed}&page=${page}`)
+    .then(res => {
+      if(!res.ok) throw new Error('Request failed')
+      return res.json()
+    })
+    .then(data => data.results)
+
+}
+
 const App = () => {
   const [users, setUsers] = useState<Users>([])
   const [showColors, setShowColors] = useState<boolean>(false)
   const [sortingBy, setSortingBy] = useState<SortBy>(SortBy.NONE)
   const [searchedCountry, setSearchedCountry] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState(false)
   const originalUsers = useRef<Users>([])
-
-  function getUsers() {
-    const maxResults = 20
-
-    fetch(`https://randomuser.me/api/?results=${maxResults}`)
-      .then(res => res.json())
-      .then(data => {
-        setUsers(data.results)
-        originalUsers.current = data.results
-      })
-      .catch(error => console.log(error))
-  }
 
   function toggleShowColors() {
     setShowColors(!showColors)
@@ -83,8 +89,19 @@ const App = () => {
 
 
   useEffect(() => {
-    getUsers()
-  }, [])
+    fetchUsers(currentPage)
+      .then(data => {
+        setUsers(prevState => prevState.concat(data))
+        originalUsers.current = data
+      })
+      .catch(error => {
+        setError(true)
+        console.log(error)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [currentPage])
 
   return (
     <>
@@ -98,13 +115,23 @@ const App = () => {
         />
       </header>
       <main>
-        <UsersList
-          users={sortedUsers}
-          showColors={showColors}
-          sortingBy={sortingBy}
-          handleChangeSort={handleChangeSort}
-          deleteUser={deleteUser}
-        />
+        {users.length > 0 &&
+          <UsersList
+            users={sortedUsers}
+            showColors={showColors}
+            sortingBy={sortingBy}
+            handleChangeSort={handleChangeSort}
+            deleteUser={deleteUser}
+          />
+        }
+        
+        {loading && <h2>Loading...</h2>}
+
+        {error && <h2>Something went wrong</h2>}
+
+        {!loading && users.length === 0 && <h2>There aren't any users</h2>}
+
+        <button onClick={() => setCurrentPage(currentPage + 1)}>Load more results</button>
       </main>
     </>
   )
