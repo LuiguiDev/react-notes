@@ -1,5 +1,5 @@
 {
-  "name": "tech-test-55k",
+  "name": "javascript-quiz",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "4.33.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "5.0.8",
+    "@mui/icons-material": "5.14.9",
+    "@mui/material": "^5.14.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -20,6 +24,10 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "ts-standard": "^12.0.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }

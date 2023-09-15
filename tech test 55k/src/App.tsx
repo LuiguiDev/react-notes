@@ -1,32 +1,15 @@
-import { useEffect, useState, useRef, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import './styles/App.css'
-import { Id, SortBy,  User,  Users } from './types.d'
+import { SortBy,  User,  Users } from './types.d'
 import { UsersList } from './components/UsersList'
-
-async function fetchUsers(page: number) { 
-  const path = 'https://randomuser.me/api/'
-  const maxResults = 10
-  const seed = 'luigui'
-
-
-  return await fetch(`${path}?results=${maxResults}&seed=${seed}&page=${page}`)
-    .then(res => {
-      if(!res.ok) throw new Error('Request failed')
-      return res.json()
-    })
-    .then(data => data.results)
-
-}
+import React from 'react'
+import useUsers from './hooks/useUsers'
 
 const App = () => {
-  const [users, setUsers] = useState<Users>([])
   const [showColors, setShowColors] = useState<boolean>(false)
   const [sortingBy, setSortingBy] = useState<SortBy>(SortBy.NONE)
   const [searchedCountry, setSearchedCountry] = useState<string | null>(null)
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState(false)
-  const originalUsers = useRef<Users>([])
+  const {isLoading, isError, users, refetch, fetchNextPage, hasNextPage} = useUsers()
 
   function toggleShowColors() {
     setShowColors(!showColors)
@@ -39,15 +22,10 @@ const App = () => {
     setSortingBy(newSortValue)
   }
  */
-  function deleteUser(id: Id) {
-    const usersFiltered = users.filter(user => {
-      return user.id !== id
-    })
-    setUsers(usersFiltered)
-  }
+  function deleteUser() {}
 
-  function resetUsers() {
-    setUsers(originalUsers.current)
+  async function resetUsers() {
+    await refetch()
   }
 
   function handleChangeSort(newSort: SortBy) {
@@ -88,21 +66,6 @@ const App = () => {
   const sortedUsers: Users = useMemo(() => getSortedUsers(findedUsers), [findedUsers, sortingBy]) // A-Z
 
 
-  useEffect(() => {
-    fetchUsers(currentPage)
-      .then(data => {
-        setUsers(prevState => prevState.concat(data))
-        originalUsers.current = data
-      })
-      .catch(error => {
-        setError(true)
-        console.log(error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [currentPage])
-
   return (
     <>
       <header>
@@ -125,13 +88,15 @@ const App = () => {
           />
         }
         
-        {loading && <h2>Loading...</h2>}
+        {isLoading && <h2>Loading...</h2>}
 
-        {error && <h2>Something went wrong</h2>}
+        {isError && <h2>Something went wrong</h2>}
 
-        {!loading && users.length === 0 && <h2>There aren't any users</h2>}
+        {!isLoading && users.length === 0 && <h2>There aren't any users</h2>}
 
-        <button onClick={() => setCurrentPage(currentPage + 1)}>Load more results</button>
+        {hasNextPage && <button onClick={() => fetchNextPage()}>Load more results</button>}
+
+        {!hasNextPage && <p>End of results</p>}
       </main>
     </>
   )
